@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .turn-indicator, .win-message {
+            width: 300px;
+            padding: 10px;
+            margin: 10px auto;
+            border: 2px solid black;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            width: 320px;
+            margin: auto;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            background: white;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        .square:hover {
+            background: lightgray;
+        }
+
+        @media (max-width: 600px) {
+            .board {
+                grid-template-columns: repeat(3, 80px);
+                grid-template-rows: repeat(3, 80px);
+            }
+            .square {
+                font-size: 1.5rem;
+            }
+            .turn-indicator, .win-message {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tic-Tac-Toe</h1>
+
+    <div class="turn-indicator">Turn: X</div>
+
+    <div class="board" id="board"></div>
+
+    <div class="win-message">Win Condition: TBD</div>
+
+    <script>
+        const NUM_SQUARES = 9;
+        let board = document.getElementById("board");
+
+        for (let i = 0; i < NUM_SQUARES; i++) {
+            document.write(`<div class='square' id='sq${i}'></div>`);
+        }
+
+        // Manually place X's and O
+        document.getElementById("sq0").innerText = "X";
+        document.getElementById("sq2").innerText = "O";
+        document.getElementById("sq4").innerText = "X";
+    </script>
+
+</body>
+</html>
