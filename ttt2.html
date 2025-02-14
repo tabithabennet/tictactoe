@@ -3,18 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tic-Tac-Toe</title>
+    <title>Tic-Tac-Toe - JavaScript Version</title>
     <style>
         body {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f9f9f9;
             font-family: Arial, sans-serif;
         }
 
+        h1 {
+            margin-bottom: 10px;
+        }
+
         .turn-indicator, .win-message {
-            width: 300px;
+            width: 320px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
             padding: 10px;
-            margin: 10px auto;
+            margin: 5px 0;
             border: 2px solid black;
+            background-color: white;
         }
 
         .board {
@@ -22,8 +35,8 @@
             grid-template-columns: repeat(3, 100px);
             grid-template-rows: repeat(3, 100px);
             gap: 5px;
-            width: 320px;
-            margin: auto;
+            background-color: black;
+            padding: 5px;
         }
 
         .square {
@@ -31,6 +44,7 @@
             justify-content: center;
             align-items: center;
             font-size: 2rem;
+            font-weight: bold;
             background: white;
             border: 2px solid black;
             cursor: pointer;
@@ -42,14 +56,15 @@
 
         @media (max-width: 600px) {
             .board {
-                grid-template-columns: repeat(3, 80px);
-                grid-template-rows: repeat(3, 80px);
+                grid-template-columns: repeat(3, 75px);
+                grid-template-rows: repeat(3, 75px);
             }
             .square {
                 font-size: 1.5rem;
             }
             .turn-indicator, .win-message {
-                width: 250px;
+                width: 240px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -69,10 +84,13 @@
         let board = document.getElementById("board");
 
         for (let i = 0; i < NUM_SQUARES; i++) {
-            document.write(`<div class='square' id='sq${i}'></div>`);
+            let div = document.createElement("div");
+            div.classList.add("square");
+            div.id = "sq" + i;
+            board.appendChild(div);
         }
 
-        // Manually place X's and O
+        // Manually place 2 X's and 1 O in the same positions as ttt1.html
         document.getElementById("sq0").innerText = "X";
         document.getElementById("sq2").innerText = "O";
         document.getElementById("sq4").innerText = "X";
