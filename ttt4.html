@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tic-Tac-Toe - Click Event</title>
+    <title>Tic-Tac-Toe - Turn-Based</title>
     <style>
         body, html { font-size: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
         .board {
@@ -27,14 +27,18 @@
             height: 100px;
         }
         .square:hover { background: lightgray; }
-        #result { font-size: 19px; margin-top: 20px; }
+        #turn-indicator, #result { font-size: 19px; margin-top: 20px; }
     </style>
     <script>
     window.onload = function() {
         const board = document.getElementById("board");
         let result = document.getElementById("result");
+        let turnIndicator = document.getElementById("turn-indicator");
+        const NUM_SQUARES = 9;
+        let currentTurn = Math.random() < 0.5 ? "X" : "O"; // Randomly selects X or O to start
+        turnIndicator.innerHTML = "Turn: " + currentTurn;
         
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < NUM_SQUARES; i++) {
             let div = document.createElement("div");
             div.classList.add("square");
             div.id = "sq" + i;
@@ -45,13 +49,14 @@
         let squares = document.getElementsByClassName("square");
         for (let i = 0; i < squares.length; i++) {
             squares[i].addEventListener("click", function() {
-                if (!this.innerText) {
-                    this.innerText = "X";
+                if (!this.innerText) { // Prevent overwriting
+                    this.innerText = currentTurn;
                     result.innerHTML = "Content: " + this.innerText +
                                     "<br />Class: " + this.className +
                                     "<br />Name: " + this.getAttribute("name") +
                                     "<br />ID: " + this.id;
-                    alert("You clicked square number: " + i);
+                    currentTurn = currentTurn === "X" ? "O" : "X";
+                    turnIndicator.innerHTML = "Turn: " + currentTurn;
                 }
             });
         }
@@ -60,7 +65,9 @@
 </head>
 <body>
     <h1>Tic-Tac-Toe</h1>
+    <div id="turn-indicator">Turn: </div>
     <div id="board" class="board"></div>
     <div id="result">placeholder</div>
 </body>
 </html>
+
