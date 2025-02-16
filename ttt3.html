@@ -5,9 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tic-Tac-Toe - Click Event</title>
     <style>
-        body, html { font-size: 30px; }
-        .square { border: 2px solid #000; padding: 15px; width: 100px; text-align: center; display: inline-block; margin: 5px; height: 100px; font-size: 2rem; cursor: pointer; }
-        .square:hover { background-color: #999; }
+        body, html { font-size: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            background-color: black;
+            padding: 5px;
+        }
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            background: white;
+            border: 2px solid black;
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+        }
+        .square:hover { background: lightgray; }
         #result { font-size: 19px; margin-top: 20px; }
     </style>
     <script>
@@ -20,7 +39,6 @@
             div.classList.add("square");
             div.id = "sq" + i;
             div.setAttribute("name", "square" + i);
-            div.innerText = "";
             board.appendChild(div);
         }
         
@@ -42,7 +60,7 @@
 </head>
 <body>
     <h1>Tic-Tac-Toe</h1>
-    <div id="board"></div>
+    <div id="board" class="board"></div>
     <div id="result">placeholder</div>
 </body>
 </html>
