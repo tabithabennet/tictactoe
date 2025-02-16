@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tic-Tac-Toe - Click Event</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            background-color: black;
+            padding: 5px;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            background: white;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        .square:hover {
+            background: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div class="board" id="board"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const NUM_SQUARES = 9;
+            let board = document.getElementById("board");
+            
+            for (let i = 0; i < NUM_SQUARES; i++) {
+                let div = document.createElement("div");
+                div.classList.add("square");
+                div.id = "sq" + i;
+                div.dataset.index = i; // Store square number
+                board.appendChild(div);
+            }
+            
+            board.addEventListener("click", function(event) {
+                let clickedSquare = event.target;
+                if (clickedSquare.classList.contains("square") && !clickedSquare.innerText) {
+                    clickedSquare.innerText = "X";
+                    alert("You clicked square number: " + clickedSquare.dataset.index);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
