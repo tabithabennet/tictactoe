@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tic-Tac-Toe - Turn-Based</title>
+    <style>
+        body, html { font-size: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            background-color: black;
+            padding: 5px;
+        }
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            background: white;
+            border: 2px solid black;
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+        }
+        .square:hover { background: lightgray; }
+        #turn-indicator, #result { font-size: 19px; margin-top: 20px; }
+        #start-game { margin-top: 20px; font-size: 20px; padding: 10px; cursor: pointer; }
+    </style>
+    <script>
+    window.onload = function() {
+        const board = document.getElementById("board");
+        let result = document.getElementById("result");
+        let turnIndicator = document.getElementById("turn-indicator");
+        let startGameBtn = document.getElementById("start-game");
+        const NUM_SQUARES = 9;
+        let currentTurn;
+        let gameOver = false;
+        
+        function initializeGame() {
+            board.innerHTML = "";
+            gameOver = false;
+            currentTurn = Math.random() < 0.5 ? "X" : "O";
+            turnIndicator.innerHTML = "Turn: " + currentTurn;
+            result.innerHTML = "";
+            
+            for (let i = 0; i < NUM_SQUARES; i++) {
+                let div = document.createElement("div");
+                div.classList.add("square");
+                div.id = "sq" + i;
+                div.setAttribute("name", "square" + i);
+                div.addEventListener("click", handleMove);
+                board.appendChild(div);
+            }
+        }
+        
+        function handleMove() {
+            if (this.innerText || gameOver) return; 
+            
+            this.innerText = currentTurn;
+            checkGameStatus();
+            
+            if (!gameOver) {
+                currentTurn = currentTurn === "X" ? "O" : "X";
+                turnIndicator.innerHTML = "Turn: " + currentTurn;
+            }
+        }
+        
+        function checkGameStatus() {
+            let squares = Array.from(document.getElementsByClassName("square"));
+            let moves = squares.map(sq => sq.innerText ? sq.innerText : "-");
+            
+            let winConditions = [
+                moves.slice(0, 3).join(""), // Top row
+                moves.slice(3, 6).join(""), // Middle row
+                moves.slice(6, 9).join(""), // Bottom row
+                [moves[0], moves[3], moves[6]].join(""), // Left column
+                [moves[1], moves[4], moves[7]].join(""), // Middle column
+                [moves[2], moves[5], moves[8]].join(""), // Right column
+                [moves[0], moves[4], moves[8]].join(""), // Diagonal TL-BR
+                [moves[2], moves[4], moves[6]].join("")  // Diagonal TR-BL
+            ];
+            
+            if (winConditions.includes("XXX")) {
+                result.innerHTML = "Player X Wins!";
+                gameOver = true;
+            } else if (winConditions.includes("OOO")) {
+                result.innerHTML = "Player O Wins!";
+                gameOver = true;
+            } else if (!moves.includes("-")) {
+                result.innerHTML = "Stalemate!";
+                gameOver = true;
+            }
+        }
+        
+        startGameBtn.addEventListener("click", initializeGame);
+        initializeGame();
+    }
+    </script>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div id="turn-indicator">Turn: </div>
+    <div id="board" class="board"></div>
+    <div id="result"></div>
+    <button id="start-game">Start Game</button>
+</body>
+</html>
